@@ -75,15 +75,16 @@ car_list = []
 for number in range(30):
     car_list.append(Vehicle((number * 10, (number * 10) + 4)))
 
+total_car_location = []
 for number in range(10):
-    print("{}seconds".format(number))
+    car_locations = []
     for index, car in enumerate(car_list):
-        print("{} Car Location: ".format(index),
-              car.location, "{} Car Speed: ".format(index), car.speed)
+        car_locations = car_locations + list(car.location)
         try:
             car.move_car(car_list[index + 1])
         except IndexError:
             car.move_car(car_list[0])
+    total_car_location.append(car_locations)
 
-
-# [Car, Car, Car, Car, Car]
+print(total_car_location)
+#
