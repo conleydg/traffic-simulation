@@ -65,9 +65,10 @@ class Simulation:
         Return list of all speeds and a list containing lists of average speeds
         , by each speed limit."""
         speeds_list = []
-        average_speeds_list = []
+
         average_speeds_by_speed = []
         for speed in self.speeds:
+            average_speeds_list = []
             for trial in range(self.trials):
                 trial_speeds_list, trial_average_speed = self.get_all_speeds(speed, self.time)
                 speeds_list.append(trial_speeds_list)
