@@ -156,6 +156,7 @@ class Vehicle:
 #
 # print(total_car_location)
 
-tron = Simulation([25, 30], 60, 10)
+tron = Simulation([33], 86400, 15)
 speeds_list, average_speeds_list = tron.full_monte()
-print("Average Speeds: ", average_speeds_list)
+print("Average Speed: ", st.mean(average_speeds_list[0]))
+print("Standard Deviation: ", st.stdev(average_speeds_list[0]))
