@@ -7,7 +7,25 @@ from scipy import stats, integrate
 from traffic_simulation import *
 
 
-print(list(range(total_car_location[0][0][0], total_car_location[0][0][1]+1)))
+car_list = []
+for number in range(30):
+    car_list.append(Vehicle((number * 33, (number * 33) + 4)))
+
+total_car_location = []
+for number in range(120):
+    car_locations = []
+    for index, car in enumerate(car_list):
+        car_locations.append(car.location)
+        try:
+            car.move_car(car_list[index + 1])
+        except IndexError:
+            car.move_car(car_list[0])
+    total_car_location.append(car_locations)
+
+
+
+
+# print(list(range(total_car_location[0][0][0], total_car_location[0][0][1]+1)))
 
 plot_all_locations = []
 
@@ -20,7 +38,7 @@ for locations in total_car_location:
         iteration_list += car_range
     plot_all_locations.append(iteration_list)
 
-print(plot_all_locations)
+# print(plot_all_locations)
 
 n = 120
 for iteration in plot_all_locations:

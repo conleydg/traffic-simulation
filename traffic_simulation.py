@@ -1,5 +1,8 @@
 import random
 import statistics as st
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats, integrate
 
 
 class Simulation:
@@ -71,6 +74,28 @@ class Simulation:
                 average_speeds_list.append(trial_average_speed)
             average_speeds_by_speed.append(average_speeds_list)
         return speeds_list, average_speeds_by_speed
+
+    def plot_traffic(self, total_car_location):
+        plot_all_locations = []
+        for locations in total_car_location:
+            iteration_list = []
+            for location in locations:
+                car_range = list(range(location[0], location[1]+1))
+                if len(car_range) == 0:
+                    car_range = list(range(location[0], 1001)) + list(range(1, location[1] + 1))
+                iteration_list += car_range
+            plot_all_locations.append(iteration_list)
+        n = 120
+        for iteration in plot_all_locations:
+            x = iteration
+            y = [n] * len(iteration)
+            plt.scatter(x, y)
+            n -= 1
+        plt.xlim(1, 1000)
+        plt.ylim(0, 120)
+        plt.show()
+
+
 
 
 class Vehicle:
@@ -156,7 +181,11 @@ class Vehicle:
 #
 # print(total_car_location)
 
-tron = Simulation([33], 86400, 15)
-speeds_list, average_speeds_list = tron.full_monte()
-print("Average Speed: ", st.mean(average_speeds_list[0]))
-print("Standard Deviation: ", st.stdev(average_speeds_list[0]))
+
+tron = Simulation([33], 60, 1)
+# speeds_list, average_speeds_list = tron.full_monte()
+
+# print("Average Speeds: ", average_speeds_list)
+#
+#
+# tron.plot_traffic(tron.get_location(25, 120))
