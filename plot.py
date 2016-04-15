@@ -7,7 +7,7 @@ from scipy import stats, integrate
 from traffic_simulation import *
 
 
-print(list(range(total_car_location[0][0][0],total_car_location[0][0][1]+1)))
+print(list(range(total_car_location[0][0][0], total_car_location[0][0][1]+1)))
 
 plot_all_locations = []
 
@@ -16,7 +16,7 @@ for locations in total_car_location:
     for location in locations:
         car_range = list(range(location[0], location[1]+1))
         if len(car_range) == 0:
-            car_range = list(range(location[0], 1001)) + list(range(1, location[1]+ 1))
+            car_range = list(range(location[0], 1001)) + list(range(1, location[1] + 1))
         iteration_list += car_range
     plot_all_locations.append(iteration_list)
 

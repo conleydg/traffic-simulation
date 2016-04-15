@@ -21,12 +21,12 @@ class Vehicle:
     10 percent chance of slowing down 2m/s
     30 cars in simulation, evenly spaced at start.
     """
-    def __init__(self, location=(0, 4), speed=0):
+    def __init__(self, location=(0, 4), speed=0, max_speed=33):
         self.location = location
         self.speed = speed
         self.acceleration = 2
         self.size = 5
-        self.max_speed = 33
+        self.max_speed = max_speed
         self.desired_space = self.speed
         self.last_location = location
 
@@ -50,6 +50,7 @@ class Vehicle:
             start = start - 1000
         if end > 1000:
             end = end - 1000
+        # (998, 1003) --> (998, 3)
         self.last_location = self.location
         self.location = (start, end)
 
