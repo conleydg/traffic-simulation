@@ -22,7 +22,7 @@ for locations in total_car_location:
 
 print(plot_all_locations)
 
-n = 60
+n = 120
 for iteration in plot_all_locations:
     x = iteration
     y = [n] * len(iteration)
