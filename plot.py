@@ -30,5 +30,5 @@ for iteration in plot_all_locations:
     n -= 1
 
 plt.xlim(1, 1000)
-plt.ylim(0, 60)
+plt.ylim(0, 120)
 plt.show()

@@ -1,20 +1,28 @@
 import random
 import statistics as st
 
+
 class Simulation:
+    """ Class that simulates 30 cars at given:
+    speeds, time (in seconds) and number of trials. """
     def __init__(self, speeds, time, trials):
         self.speeds = speeds
         self.time = time
         self.trials = trials
 
     def make_cars(self, speed):
+        """ Make 30 car objects with given speed limit
+        and give them evenly spaced locations across 1km stretch of road. """
         car_list = []
         for number in range(30):
             car_list.append(Vehicle(
                             (number * 33, (number * 33) + 4), max_speed=speed))
         return car_list
 
-    def get_location_one_trial(self, speed, time):
+    def get_location(self, speed, time):
+        """ Simulate 30 cars going at given speed
+        for given number of cycles (time).
+        Return list of all car locations. """
         car_list = self.make_cars(speed)
 
         total_car_location = []
@@ -30,6 +38,9 @@ class Simulation:
         return total_car_location
 
     def get_all_speeds(self, speed, time):
+        """ Simulate 30 cars going at given speed
+        for given number of cycles (time).
+        Return list of all car speeds and average speed. """
         car_list = self.make_cars(speed)
 
         total_car_speeds = []
@@ -44,18 +55,22 @@ class Simulation:
                     car.move_car(car_list[0])
             total_car_speeds.append(car_speeds)
             average_speeds.append(st.mean(car_speeds))
-        return total_car_speeds, st.mean(average_speeds)
+        return total_car_speeds, round(st.mean(average_speeds), 2)
 
     def full_monte(self):
+        """ Run number of trials given at object creation for each speed given.
+        Return list of all speeds and a list containing lists of average speeds
+        , by each speed limit."""
         speeds_list = []
         average_speeds_list = []
+        average_speeds_by_speed = []
         for speed in self.speeds:
             for trial in range(self.trials):
-                trial_speeds_list, trial_average_speeds_list = self.get_all_speeds(speed, self.time)
+                trial_speeds_list, trial_average_speed = self.get_all_speeds(speed, self.time)
                 speeds_list.append(trial_speeds_list)
-                average_speeds_list.append(trial_average_speeds_list)
-        return speeds_list, average_speeds_list
-
+                average_speeds_list.append(trial_average_speed)
+            average_speeds_by_speed.append(average_speeds_list)
+        return speeds_list, average_speeds_by_speed
 
 
 class Vehicle:
@@ -78,18 +93,22 @@ class Vehicle:
         self.last_location = location
 
     def move_car(self, next_car):
+        """ Does all the steps necessary to move the car each iteration."""
         space = self.get_space_ahead(next_car)
         self.update_speed(space, next_car)
         self.random_slowdown()
         self.set_location(next_car)
 
     def get_space_ahead(self, next_car):
+        """ Checks how much space is between current car's font bumper
+        and next_car's back bumper."""
         if next_car.location[0] < self.location[1]:
             return (1000 - self.location[1]) + next_car.location[0]
         else:
             return next_car.location[0] - self.location[1]
 
     def set_location(self, next_car):
+        """Changes the location of the car based on car's speed."""
         start = self.location[0] + self.speed
         end = self.location[1] + self.speed
         # (993, 998) --> (998, 1003)
@@ -102,23 +121,24 @@ class Vehicle:
         self.location = (start, end)
 
     def update_speed(self, space, next_car):
-        # print("Space between cars: ", space)
+        """Change the car's speed based on space ahead of car."""
         if space <= 2:
             self.speed = 0
-        elif space >= self.speed:
-            if self.speed < self.max_speed:
-                self.speed += self.acceleration
-            elif self.speed > self.max_speed:
-                self.speed = self.max_speed
+        elif space >= self.speed and self.speed < self.max_speed:
+            # if self.speed < self.max_speed:
+            self.speed += self.acceleration
+            # elif self.speed > self.max_speed:
+            #     self.speed = self.max_speed
         else:
             self.speed = next_car.speed
 
     def random_slowdown(self):
+        """10 percent chance to slow the car by 2/ms every iteration."""
         if random.random() < .10:
             if self.speed > 2:
                 self.speed -= 2
 
-# # [0, 0, 0, 1, 1, Car, 1, 1, 0, 0, 0, 0, 1, 1, Car, 1, 1, 0, 0]
+# [0, 0, 0, 1, 1, Car, 1, 1, 0, 0, 0, 0, 1, 1, Car, 1, 1, 0, 0]
 # car_list = []
 # for number in range(30):
 #     car_list.append(Vehicle((number * 33, (number * 33) + 4)))
@@ -133,9 +153,9 @@ class Vehicle:
 #         except IndexError:
 #             car.move_car(car_list[0])
 #     total_car_location.append(car_locations)
-
-# print(total_car_location)
 #
-tron = Simulation([30], 60, 10)
+# print(total_car_location)
+
+tron = Simulation([25, 30], 60, 10)
 speeds_list, average_speeds_list = tron.full_monte()
 print("Average Speeds: ", average_speeds_list)
