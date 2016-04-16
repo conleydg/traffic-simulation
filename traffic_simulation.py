@@ -78,6 +78,8 @@ class Simulation:
         return speeds_list, average_speeds_by_speed
 
     def plot_traffic(self, total_car_location):
+        """ Method to plot the location of cars in space and time. Takes list
+        of total car locations. """
         plot_all_locations = []
         for locations in total_car_location:
             iteration_list = []
@@ -184,7 +186,7 @@ class Vehicle:
 # print(total_car_location)
 
 
-tron = Simulation([33], 60, 1)
+tron = Simulation([33], 120, 1)
 # speeds_list, average_speeds_list = tron.full_monte()
 
 # print("Average Speeds: ", average_speeds_list)
