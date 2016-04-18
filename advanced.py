@@ -175,7 +175,7 @@ class Vehicle:
             self.speed = next_car.speed
 
     def random_slowdown(self, chance_of_slowdown):
-        """10 percent chance to slow the car by 2/ms every iteration."""
+        """Location dependent chance to slow the car by 2ms every iteration."""
         if random.random() < self.chance_of_slowdown:
             if self.speed > 2:
                 self.speed -= 2
