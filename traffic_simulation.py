@@ -185,7 +185,7 @@ class Vehicle:
 # print(total_car_location)
 
 
-tron = Simulation([33], 120, 1)
+# tron = Simulation([33], 120, 1)
 # speeds_list, average_speeds_list = tron.full_monte()
 
 # print("Average Speeds: ", average_speeds_list)

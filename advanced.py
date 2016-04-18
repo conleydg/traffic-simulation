@@ -15,7 +15,7 @@ class Simulation:
         self.trials = trials
         self.chance_of_slowdown = chance_of_slowdown
 
-    def make_cars(self, speed, chance_of_slowdown = .1):
+    def make_cars(self, speed, chance_of_slowdown=.1):
         """ Make 30 car objects with given speed limit
         and give them evenly spaced locations across 1km stretch of road. """
         car_list = []
