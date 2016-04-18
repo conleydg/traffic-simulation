@@ -158,7 +158,6 @@ class Vehicle:
             self.chance_of_slowdown=.12
         elif end > 6000 and end < 7000:
             self.chance_of_slowdown=.1
-
         # (998, 1003) --> (998, 3)
         self.last_location = self.location
         self.location = (start, end)
@@ -200,11 +199,11 @@ class Vehicle:
 # print(total_car_location)
 
 
-tron = Simulation([33], 480, 1, .1)
-# speeds_list, average_speeds_list = tron.full_monte()
-#
-# print("Average Speeds: ", average_speeds_list)
-tron.plot_traffic(tron.get_location(33, 480))
+# tron = Simulation([33], 480, 1, .1)
+# # speeds_list, average_speeds_list = tron.full_monte()
+# #
+# # print("Average Speeds: ", average_speeds_list)
+# tron.plot_traffic(tron.get_location(33, 480))
 
 
 
