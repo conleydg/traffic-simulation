@@ -2,8 +2,7 @@ import random
 import statistics as st
 import matplotlib.pyplot as plt
 import seaborn as sns
-from scipy import stats, integrate
-import numpy as np
+
 
 
 class Simulation:
